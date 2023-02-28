@@ -6,6 +6,7 @@ interface UserRes extends mongoose.Document{
     password:string;
     isValid?:boolean;
     role:string;
+    uniqueString?:string;
 }
 const userschema=new mongoose.Schema<UserRes>({
     name:{
@@ -28,7 +29,10 @@ const userschema=new mongoose.Schema<UserRes>({
         type:String,
         enum:Object.values(roles),
         required:true
-    }
+    },
+    uniqueString:{
+        type:String,
+    },
 },
 {
     toJSON:{
