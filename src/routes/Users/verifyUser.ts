@@ -10,7 +10,7 @@ class VerifyUser implements __Router{
     }
    
     private initializeRoutes(): void {
-        this.router.post(
+        this.router.get(
             `${this.path}`,
             UserController.verfiyUser
         );
