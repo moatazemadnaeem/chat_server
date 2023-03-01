@@ -18,7 +18,7 @@ const UserController={
         const user=await User.create({name,email,password:hashPass(password),role,uniqueString})
         SendEmail(user.email,user.uniqueString);
 
-        return res.status(201).send({name:user.name,email:user.email,id:user.id,role:user.role})
+        return res.status(201).send({name:user.name,email:user.email,id:user.id,role:user.role,msg:'User Created Successfully.'})
        }catch(err:any){
         throw new BadReqErr(err.message)
        }
@@ -56,7 +56,7 @@ const UserController={
             id:existingUser._id,
             role:existingUser.role,
             token,
-            msg:'User Created Successfully.'
+            msg:'Done Signing In.'
         })
     },
     signout:async(req:Request,res:Response)=>{
