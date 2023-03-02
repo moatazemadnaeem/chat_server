@@ -9,6 +9,8 @@ import VerifyUser from './routes/Users/verifyUser';
 import ForgotPass from './routes/Users/forgotPass';
 import SendOtpReset from './routes/Users/sendOtpReset';
 import AddNewPass from './routes/Users/addNewPass';
+import ResendOtp from './routes/Users/resendOtp';
+import ResendOtpReset from './routes/Users/resendOtpReset';
 new App([
     //Users
     new CreateUser(),
@@ -18,5 +20,7 @@ new App([
     new VerifyUser(),
     new ForgotPass(),
     new SendOtpReset(),
-    new AddNewPass()
+    new AddNewPass(),
+    new ResendOtp(),
+    new ResendOtpReset()
 ],Number(process.env.PORT))

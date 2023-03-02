@@ -23,6 +23,42 @@ const UserController={
         throw new BadReqErr(err.message)
        }
     },
+    resendOtp:async(req:Request,res:Response)=>{
+        const {email}=req.body;
+        try{
+            const exists=await User.findOne({email})
+            if(!exists){
+               throw new BadReqErr('Email Not found')
+            }
+            const uniqueString=GetRandString()
+            exists.uniqueString=uniqueString;
+            await exists.save()
+           
+            SendEmail(exists.email,exists.uniqueString);
+    
+            return res.status(200).send({msg:'Otp sent Successfully.'})
+           }catch(err:any){
+            throw new BadReqErr(err.message)
+           }
+    },
+    resendOtpReset:async(req:Request,res:Response)=>{
+        const {email}=req.body;
+        try{
+            const exists=await User.findOne({email})
+            if(!exists){
+               throw new BadReqErr('Email Not found')
+            }
+            const uniqueString=GetRandString()
+            exists.uniqueResetPassStr=uniqueString;
+            await exists.save()
+           
+            SendEmail(exists.email,exists.uniqueResetPassStr);
+    
+            return res.status(200).send({msg:'Otp sent Successfully.'})
+           }catch(err:any){
+            throw new BadReqErr(err.message)
+           }
+    },
     signIn:async(req:Request,res:Response)=>{
         const {email,password}=req.body;
         //if user exist
