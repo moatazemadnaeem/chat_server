@@ -97,7 +97,7 @@ const UserController={
             if(user){
                 user.isValid=true;
                 await user.save()
-                res.send('<h1>Done Verifying Please Return Back To The website.</h1>')
+                res.redirect('https://chat-five-dusky.vercel.app/signin')
             }
             else{
                 throw new notfound('can not find the user')
@@ -106,5 +106,47 @@ const UserController={
             throw new BadReqErr(err.message)
         }
     },
+    forgotPassword:async(req:Request,res:Response)=>{
+        const {email}=req.body;
+        
+        const existingUser=await User.findOne({email})
+        if(!existingUser){
+            throw new BadReqErr('Can Not Find This Email.')
+        }
+
+        const otp=GetRandString()
+
+        existingUser.set({uniqueResetPassStr:otp})
+
+        await existingUser.save()
+
+        //send true to make this function act like forgot pass
+        SendEmail(email,otp,true)
+
+        return res.status(200).send({msg:'OTP sent to your email for reseting your password please check it out.',status:true})
+
+    },
+    sendOtp:async(req:Request,res:Response)=>{
+        const {email,uniqueString}=req.body;
+        const existingUser=await User.findOne({email})
+        if(!existingUser){
+            throw new BadReqErr('Can Not Find This Email.')
+        }
+
+        if(existingUser.uniqueResetPassStr!==uniqueString){
+            throw new BadReqErr('Bad Creds Please check your gmail for the OTP')
+        }
+        return res.status(200).send({msg:'Success Now your able to reset your password',status:true})
+    },
+    resetPassword:async(req:Request,res:Response)=>{
+        const {email,newpass}=req.body;
+        const existingUser=await User.findOne({email})
+        if(!existingUser){
+            throw new BadReqErr('Can Not Find This Email.')
+        }
+        existingUser.set({password:hashPass(newpass)})
+        await existingUser.save()
+        return res.status(200).send({msg:'Now you can use your new password',status:true})
+    }
 }
 export default UserController

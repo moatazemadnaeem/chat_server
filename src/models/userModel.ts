@@ -7,6 +7,7 @@ interface UserRes extends mongoose.Document{
     isValid?:boolean;
     role:string;
     uniqueString?:string;
+    uniqueResetPassStr?:string;
 }
 const userschema=new mongoose.Schema<UserRes>({
     name:{
@@ -33,6 +34,9 @@ const userschema=new mongoose.Schema<UserRes>({
     uniqueString:{
         type:String,
     },
+    uniqueResetPassStr:{
+        type:String,
+    }
 },
 {
     toJSON:{

@@ -1,6 +1,6 @@
 const nodemailer=require('nodemailer')
 
-export const SendEmail=(email:string,uniqueString:string|undefined)=>{
+export const SendEmail=(email:string,uniqueString:string|undefined,forgot:boolean=false)=>{
 
     const Transport=nodemailer.createTransport({
         service:'gmail',
@@ -13,7 +13,7 @@ export const SendEmail=(email:string,uniqueString:string|undefined)=>{
         from:'moatazemad772@gmail.com',
         to:email,
         subject:'Email confirmation',
-        text:`Please Press This Link https://yellow-narwhal-vest.cyclic.app/api/v1/users/verfiy_user/${uniqueString} to verify your email. Thanks`
+        text:forgot?`Type this otp in your app ( ${uniqueString} ) to reset your password. Thanks`:`Please Press This Link https://yellow-narwhal-vest.cyclic.app/api/v1/users/verfiy_user/${uniqueString} to verify your email. Thanks`
     }
     Transport.sendMail(mailOptions,function(err:any,res:any){
         if(err){
