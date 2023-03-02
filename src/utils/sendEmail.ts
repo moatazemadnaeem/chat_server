@@ -1,5 +1,4 @@
-const nodemailer=require('nodemailer')
-
+import nodemailer from 'nodemailer'
 export const SendEmail=(email:string,uniqueString:string|undefined,forgot:boolean=false)=>{
 
     const Transport=nodemailer.createTransport({
