@@ -2,6 +2,9 @@ import nodemailer from 'nodemailer'
 export const SendEmail=(email:string,uniqueString:string|undefined,forgot:boolean=false)=>{
 
     const Transport=nodemailer.createTransport({
+        host: 'smtp.zoho.eu',
+        port: 465,
+        secure: true,
         service:'gmail',
         auth:{
             user:'moatazemad772@gmail.com',
