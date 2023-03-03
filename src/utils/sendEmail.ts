@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer'
-export const SendEmail=(email:string,uniqueString:string|undefined,forgot:boolean=false)=>{
+import sgMail from '@sendgrid/mail'
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
+export const SendEmailOld=(email:string,uniqueString:string|undefined,forgot:boolean=false)=>{
 
     const Transport=nodemailer.createTransport({
         host: 'smtp.zoho.eu',
@@ -24,5 +26,22 @@ export const SendEmail=(email:string,uniqueString:string|undefined,forgot:boolea
         }else{
             console.log('Response',res)
         }
+    })
+}
+export const SendEmail=(email:string,uniqueString:string|undefined,forgot:boolean=false)=>{
+   
+    const msg = {
+      to: email, 
+      from: 'moatazwork0@gmail.com', 
+      subject:'Email confirmation',
+      text:forgot?`Type this otp in your app ( ${uniqueString} ) to reset your password. Thanks`:`Please Press This Link https://yellow-narwhal-vest.cyclic.app/api/v1/users/verfiy_user/${uniqueString} to verify your email. Thanks`
+    }
+    sgMail
+    .send(msg)
+    .then(() => {
+    console.log('Email sent')
+    })
+    .catch((error) => {
+    console.error(error)
     })
 }
