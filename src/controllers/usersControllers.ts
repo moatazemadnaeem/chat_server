@@ -166,7 +166,7 @@ const UserController={
         const {email,uniqueString}=req.body;
         const existingUser=await User.findOne({email})
         if(!existingUser){
-            throw new BadReqErr('Can Not Find This Email.')
+            throw new BadReqErr('Can Not Find This Email Please Try Again.')
         }
 
         if(existingUser.uniqueResetPassStr!==uniqueString){
