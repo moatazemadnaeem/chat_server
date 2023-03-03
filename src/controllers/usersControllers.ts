@@ -52,7 +52,7 @@ const UserController={
             exists.uniqueResetPassStr=uniqueString;
             await exists.save()
            
-            SendEmail(exists.email,exists.uniqueResetPassStr);
+            SendEmail(exists.email,exists.uniqueResetPassStr,true);
     
             return res.status(200).send({msg:'Otp sent Successfully.'})
            }catch(err:any){
