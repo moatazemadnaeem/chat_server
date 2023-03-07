@@ -11,7 +11,7 @@ class CurrentUser implements __Router{
     }
    
     private initializeRoutes(): void {
-        this.router.post(
+        this.router.get(
             `${this.path}`,
             Auth,
             UserController.current
