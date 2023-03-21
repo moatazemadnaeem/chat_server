@@ -183,6 +183,9 @@ const UserController={
         existingUser.set({password:hashPass(newpass)})
         await existingUser.save()
         return res.status(200).send({msg:'Now you can use your new password',status:true})
+    },
+    checkToken:async(req:Request,res:Response)=>{
+        return res.status(200).send({msg:'You Have the Right Creds Enjoy',status:true,IsValid:true})
     }
 }
 export default UserController
