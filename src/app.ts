@@ -48,7 +48,7 @@ class App{
         this.express.use(
             cookieSession({
                 signed:false,
-                maxAge: 5 * 1000
+                maxAge: 24 * 60 * 60 * 1000
             })
         )
     }

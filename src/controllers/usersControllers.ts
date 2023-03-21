@@ -79,7 +79,7 @@ const UserController={
         }
         const token= jwt.sign({
             id:existingUser._id,
-        },process.env.JWT_KEY!,{ expiresIn: '5s' })
+        },process.env.JWT_KEY!,{ expiresIn: '1d' })
         req.session={
             jwt:token
         }
