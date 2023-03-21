@@ -11,7 +11,7 @@ import SendOtpReset from './routes/Users/sendOtpReset';
 import AddNewPass from './routes/Users/addNewPass';
 import ResendOtp from './routes/Users/resendOtp';
 import ResendOtpReset from './routes/Users/resendOtpReset';
-import CheckToken from 'routes/Users/checkToken';
+import CheckToken from './routes/Users/checkToken';
 new App([
     //Users
     new CreateUser(),
